@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> table;
+        vector<pair<int,int>> result;
+        vector<int> finalKeys;
+
+        for(int x: nums){
+            table[x]++;
+        }
+
+        for(auto i = table.begin(); i != table.end(); i++){
+            result.push_back({i->first, i->second});
+        }
+        sort(result.begin(), result.end(), [](auto &a, auto &b){
+            return a.second < b.second;
+        });
+
+        int maxE = result.size()-1;
+        while(k>0){
+            finalKeys.push_back(result[maxE].first);
+            maxE--;
+            k--;
+        }
+
+        return finalKeys;
+    }
+};
